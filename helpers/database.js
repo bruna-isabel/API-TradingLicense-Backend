@@ -1,5 +1,5 @@
 const mysql = require('mysql2');
-const db_info = require('./config')
+const db_info = require('../config')
 
 exports.run_query = async function run_query(query, values) {
     try {

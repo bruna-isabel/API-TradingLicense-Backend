@@ -2,11 +2,17 @@ const express = require('express');
 const bodyParser = require('body-parser');
 const mysql = require('mysql2');
 const cors = require('cors');
-const db = require('./database.js')
+const db = require('./helpers/database.js');
 
 const app = express();
 
-//to upload photos 
+//Gets all the routes
+const listings = require('./routes/listings');
+
+//Uses the routes
+app.use('/listings', listings);
+
+//To upload photos 
 app.use(bodyParser.json({limit: "30mb", extended: true  }));
 app.use(bodyParser.urlencoded({limit: "30mb", extended: true}));
 app.use(cors);
