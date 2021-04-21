@@ -1,5 +1,6 @@
 // Listings Routes
 const express = require('express');
+
 const {getListings, getListingById, createListing, updateListing, deleteListing} = require('../controllers/listings.js');
 
 const router = express.Router()

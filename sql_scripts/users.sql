@@ -4,5 +4,5 @@ CREATE TABLE users (
     email VARCHAR(64) UNIQUE NOT NULL,
     password VARCHAR(32) NOT NULL,
     role_id INT,
-    FOREIGN KEY (role_id) REFERENCES userRoles(id);
+    FOREIGN KEY (role_id) REFERENCES userRoles(id)
     );
