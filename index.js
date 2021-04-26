@@ -4,13 +4,18 @@ const mysql = require('mysql2');
 const cors = require('cors');
 
 const db = require('./models');
+
+const home = require('./routes/home')
 const listings = require('./routes/listings');
+const users = require('./routes/users')
 
 const app = express();
 app.use(express.json());
 
 //Uses the routes
+app.use('/', home)
 app.use('/listings', listings);
+app.use('/users', users)
 
 //To upload photos 
 app.use(bodyParser.json({limit: "30mb", extended: true  }));
@@ -20,8 +25,8 @@ app.use(cors);
 
 //Creates module but if module already exixts, doesn't overwrite it
 db.sequelize.sync().then((req) => {
-    app.listen(3000, () => {
-        console.log('Server is running on Port 3000')
+    app.listen(5000, () => {
+        console.log('Server is running on Port 5000')
     });
 });
 
