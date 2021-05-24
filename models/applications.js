@@ -2,7 +2,7 @@
 //const db = require('../helpers/database');
 
 module.exports = (sequelize, DataTypes) => {
-    const Listing = sequelize.define("Listing", {
+    const Application = sequelize.define("Application", {
         id: {
             type: DataTypes.INTEGER,
             allowNull: false,
@@ -10,7 +10,7 @@ module.exports = (sequelize, DataTypes) => {
             unique: true,
             primaryKey: true
         },
-        dog_name: {
+        business_name: {
             type: DataTypes.STRING,
             allowNull: false,
             unique: true,
@@ -20,15 +20,15 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: false,
             unique: true
         },
-        is_adopted: {
-            type: DataTypes.BOOLEAN,
+        address: {
+            type: DataTypes.STRING,
             allowNull: false
         },
-        date_of_birth: {
+        date_founded: {
             type: DataTypes.STRING
         }
     });
     /*Listing.associate = (models) {
         Listing.belongsTo(models.user)*/
-        return Listing;
+        return Application;
 }

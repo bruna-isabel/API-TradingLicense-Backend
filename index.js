@@ -6,7 +6,7 @@ const cors = require('cors');
 const db = require('./models');
 
 const home = require('./routes/home')
-const listings = require('./routes/listings');
+const listings = require('./routes/applications');
 const users = require('./routes/users')
 
 const app = express();
@@ -14,7 +14,7 @@ app.use(express.json());
 
 //Uses the routes
 app.use('/', home)
-app.use('/listings', listings);
+app.use('/applications', listings);
 app.use('/users', users)
 
 //To upload photos 

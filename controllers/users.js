@@ -1,7 +1,7 @@
 // Listings Controller
 const { User } = require('../models');
 
-//Gets all listings
+//Gets all users
 exports.getUsers = async (req, res) => {
         User.findAll()
         .then((users) => {
@@ -11,7 +11,7 @@ exports.getUsers = async (req, res) => {
     })
 };
 
-//Gets Listings by ID
+//Gets users by ID
 exports.getUserById = async (req, res) => {
     const id = req.params.id;
     if (!id) {
@@ -42,7 +42,7 @@ exports.getUserByEmail = async (req, res) => {
     }
 };
 
-//Creates Listings
+//Creates Users
 exports.createUser = async (req, res) => {
 
     const {name, email, password} = req.body;
@@ -80,7 +80,7 @@ exports.createUser = async (req, res) => {
 
 };
 
-// Updates Listing
+// Updates Userss
 exports.updateUser = async (req, res) => {
 
     const {name, email, password} = req.body;
@@ -113,7 +113,7 @@ exports.updateUser = async (req, res) => {
     
 };
 
-//Deletes a listing
+//Deletes the user
 exports.deleteUser = async (req, res) => {
     const id = req.params.id;
 
@@ -130,7 +130,7 @@ exports.deleteUser = async (req, res) => {
         },
     });
 
-    //if listing doesn't exist
+    //if user doesn't exist
     if (!user) {
         return res.status(400).send({
             message: `User unexistent for id ${id}`
