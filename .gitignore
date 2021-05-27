@@ -1,2 +1,3 @@
 //ignore database info
 config.js
+auth.config.js
