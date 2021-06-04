@@ -13,12 +13,12 @@ module.exports = (sequelize, DataTypes) => {
         business_name: {
             type: DataTypes.STRING,
             allowNull: false,
-            unique: true,
+            unique: false,
         },
         description: {
             type: DataTypes.STRING,
             allowNull: false,
-            unique: true
+            unique: false
         },
         address: {
             type: DataTypes.STRING,

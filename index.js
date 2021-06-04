@@ -11,6 +11,7 @@ const Role = db.roles;
 const home = require('./routes/home')
 const applications = require('./routes/applications');
 const users = require('./routes/users');
+const auth = require('./routes/auth');
 
 const app = express();
 app.use(express.json());
@@ -19,6 +20,7 @@ app.use(express.json());
 app.use('/', home)
 app.use('/applications', applications);
 app.use('/users', users)
+app.use('/auth', auth)
 
 
 //To upload photos 
@@ -28,20 +30,23 @@ app.use(cors);
 
 
 //Creates module but if module already exixts, doesn't overwrite it
-db.sequelize.sync().then((req) => {
-    app.listen(5000, () => {
-        console.log('Server is running on Port 5000')
+db.sequelize.sync()
+    .then((req) => {
+      app.listen(5000, () => {
+          console.log('Server is running on Port 5000')
+      });
+      Role.create({
+        id: 1,
+        name: "user"
+      });
+      Role.create({
+        id: 2,
+        name: "admin"
+      });
+    })
+    .catch(err => {
+      console.error('Unable ro create roles', err)
     });
-    Role.create({
-      id: 1,
-      name: "user"
-    });
-   
-    Role.create({
-      id: 2,
-      name: "admin"
-    });
-});
 
 // Database connection
 db.sequelize

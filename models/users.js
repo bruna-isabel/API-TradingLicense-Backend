@@ -13,7 +13,7 @@ module.exports = (sequelize, DataTypes) => {
         name: {
             type: DataTypes.STRING,
             allowNull: false,
-            unique: true,
+            unique: false,
         },
         email: {
             type: DataTypes.STRING,
@@ -25,23 +25,9 @@ module.exports = (sequelize, DataTypes) => {
             allowNull: false
         },
         role_id: {
-            type: DataTypes.INTEGER,
+            type: DataTypes.INTEGER
         },
     });
-    //Input validation! 
-    /*users.beforeSave((user) => {
-        if (user.changed('password')) {
-            user.password = bcrypt.hashSync(user.password, bcrypt.genSaltSync(10), null);
-        }
-    });
     
-    users.prototype.comparePassword = function (password, cb) {
-        bcrypt.compare(password, this.password, function (err, isMatch) {
-            if (err) {
-                return cb(err);
-            }
-            cb(null, isMatch);
-        });
-    };*/
     return User;
 }

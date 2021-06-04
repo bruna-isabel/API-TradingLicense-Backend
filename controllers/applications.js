@@ -3,12 +3,17 @@ const { Application } = require('../models');
 
 //Gets all listings
 exports.getApplications = async (req, res) => {
-        Application.findAll()
+    try {
+        await Application.findAll()
         .then((applications) => {
             res.status(201).json(applications);
         }).catch ((error) => {
             res.status(409).json({message: error.message});
-    })
+        })
+    } catch (err) {
+        return res.status(500).json({message: "Error finding applications"})
+    }
+        
 };
 
 //Gets Listings by ID
@@ -62,11 +67,11 @@ exports.updateApplication = async (req, res) => {
     try {
 
         //Finds listing for certain id
-        const application = await Listing.findOne({ where: { id } });
+        const application = await Application.findOne({ where: { id } });
 
         //If listing does not exist
         if (!application) {
-            return res.status(400).send({ message: `Listing unexistent for id ${id}` });
+            return res.status(400).send({ message: `Application unexistent for id ${id}` });
         }
 
         try {
@@ -97,19 +102,23 @@ exports.deleteApplication = async (req, res) => {
             message: "Please enter the id!"
         });
     }
-
-    const application = await Application.findOne({
-        where: {
-            id,
-        },
-    });
-
-    //if listing doesn't exist
-    if (!application) {
-        return res.status(400).send({
-            message: `Listing unexistent for id ${id}`
+    try {
+        const application = await Application.findOne({
+            where: {
+                id,
+            },
         });
+    
+        //if listing doesn't exist
+        if (!application) {
+            return res.status(400).send({
+                message: `Application unexistent for id ${id}`
+            });
+        }
+    } catch (err) {
+        return res.status(500).send({message: "Error finding application"})
     }
+    
 
     try {
         await application.destroy();
@@ -123,5 +132,4 @@ exports.deleteApplication = async (req, res) => {
         });
         
     }
-
 };
