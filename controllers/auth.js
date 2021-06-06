@@ -1,6 +1,8 @@
+require('dotenv').config();
+
 const { User } = require('../models');
 const bcrypt = require('bcrypt')
-const jwt = require('jsonwebtoken')
+const jwt = require('jsonwebtoken');
 
 exports.login = async (req, res) => {
 
@@ -11,11 +13,10 @@ exports.login = async (req, res) => {
             message: "Please insert all details"
         });
     }
-    let result;
 
+    let result;
     try {
         result = await User.findOne({ where: { email } });
-        console.log(result)
     } catch (error) {
         res.status(409).json({message: "Error during authentication"});
         return
@@ -24,11 +25,15 @@ exports.login = async (req, res) => {
     if (Object.keys(result).length) {
         user = result.dataValues
         console.log(user)
+        
         //Compares passwords
         try {
             let passwordsMatch = await bcrypt.compare(req.body.password, user.password)
             if (passwordsMatch) {
-                return res.send('Password Match')
+                //gets token
+                const token = jwt.sign({id: user.id}, process.env.ACCESS_TOKEN_SECRET)
+                res.json({token: token})
+
             } else {
                 res.send('Not a Match')
             }
@@ -82,3 +87,21 @@ exports.signup = async (req, res) => {
     }
 
 };
+
+// FORMAT OF TOKEN 
+// Authoriazation: Bearer <token>
+
+//Middleware 
+exports.authenticateToken = (req, res, next)  => {
+    const authHeader  =  req.headers['authorization']
+    //return undefined if the authheader is there
+    const token = authHeader && authHeader.split(' ')[1]
+
+    if (!token) return res.sendStatus(401)
+
+    jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
+        if (err) return res.sendStatus(403)
+        req.user = user
+        next() 
+    })
+}
