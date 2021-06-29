@@ -12,8 +12,7 @@ module.exports = (sequelize, DataTypes) => {
         },
         name: {
             type: DataTypes.STRING,
-            allowNull: false,
-            unique: false,
+            allowNull: false
         },
         email: {
             type: DataTypes.STRING,
@@ -28,6 +27,5 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.INTEGER
         },
     });
-    
     return User;
 }

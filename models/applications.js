@@ -28,9 +28,6 @@ module.exports = (sequelize, DataTypes) => {
         },
         date_founded: {
             type: DataTypes.STRING
-        },
-        authorId: {
-            type: DataTypes.STRING
         }
     });
     Application.associate = (models) => {
