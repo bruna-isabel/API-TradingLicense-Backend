@@ -2,6 +2,7 @@
 
 const fs = require('fs');
 const path = require('path');
+const { REPL_MODE_SLOPPY } = require('repl');
 const Sequelize = require('sequelize');
 const basename = path.basename(__filename);
 const env = process.env.NODE_ENV || 'development';
@@ -36,7 +37,7 @@ db.Sequelize = Sequelize;
 
 db.users = require("../models/users.js")(sequelize, Sequelize);
 db.roles = require("../models/roles.js")(sequelize, Sequelize);
-/*
+
 db.roles.belongsToMany(db.users, {
   through: "user_roles",
   foreignKey: "roleId",
@@ -49,5 +50,5 @@ db.users.belongsToMany(db.roles, {
 });
 
 db.ROLES = ["user", "admin"];
-*/
+
 module.exports = db;

@@ -14,36 +14,40 @@ exports.login = async (req, res) => {
         });
     }
 
-    let result;
+    let result = {};
     try {
         result = await User.findOne({ where: { email } });
-    } catch (error) {
-        res.status(409).json({message: "Error during authentication"});
-        return
-    }
+        console.log(result)
 
-    if (Object.keys(result).length) {
-        user = result.dataValues
-        console.log(user)
-        
-        //Compares passwords
-        try {
-            let passwordsMatch = await bcrypt.compare(req.body.password, user.password)
-            if (passwordsMatch) {
-                //gets token
-                const token = jwt.sign({id: user.id}, process.env.ACCESS_TOKEN_SECRET)
-                res.json({token: token})
-
-            } else {
-                res.send('Not a Match')
+        if (Object.keys(result).length) {
+            user = result.dataValues
+            console.log(user)
+            
+            //Compares passwords
+            try {
+                let passwordsMatch = await bcrypt.compare(req.body.password, user.password)
+                if (passwordsMatch) {
+                    //gets token
+                    const token = jwt.sign({id: user.id}, process.env.ACCESS_TOKEN_SECRET)
+                    res.json({token: token})
+    
+                } else {
+                    res.send('Not a Match')
+                }
+            } catch (err) {
+                res.status(500).send()
+                console.log(err.message)
             }
-        } catch (err) {
-            res.status(500).send()
-            console.log(err.message)
+    
+        } else { 
+            return res.status(400).send('Theres no user matching those details');
         }
-    } else {
-        return res.status(400).send('Theres no user matching those details');
+        
+    } catch (error) {
+        return res.status(409).json({message: "Not able to find user"});
     }
+
+    
  
 };
 
