@@ -11,11 +11,10 @@ exports.getUsers = async (req, res) => {
             res.status(201).json(users);
         }).catch ((error) => {
             res.status(409).json({message: error.message});
-    }) 
+        }) 
     } catch (err) {
         res.status(500).json({message: error.message});
-    }
-        
+    }      
 };
 
 //Gets users by ID
@@ -49,50 +48,6 @@ exports.getUserByEmail = async (req, res) => {
     } catch (error) {
         res.status(409).json({message: error.message});
     }
-};
-
-//Creates Users
-exports.createUser = async (req, res) => {
-
-    const {name, email, password} = req.body;
-    console.log(req.body)
-
-    //Validate Listing
-    if (!name || !email || !password ){
-        return res.status(400).send({message: "Please enter all the fields" });
-    }
-
-    try {
-        //If email already exists
-            let emailRegistered = await User.findOne({
-                where: {
-                email,
-                },
-            });
-            
-            if (emailRegistered) {
-                return res.status(400).send({
-                message: 'An account with that email already exists!',
-                });
-            }
-    } catch (err) {
-        res.status(400).send({message: "We cant find a user with that email."})
-    }
-    
-
-    //Creates User
-    try {
-        const hashedPass = await bcrypt.hash(password, 10)
-        let newUser = await User.create({
-            name: name, 
-            email: email,
-            password: hashedPass
-        });
-        return res.json(newUser);
-    } catch (error) {
-        return res.status(500).json({message: error.message});
-    }
-
 };
 
 // Updates Userss
@@ -148,22 +103,24 @@ exports.deleteUser = async (req, res) => {
             return res.status(400).send({
                 message: `User unexistent for id ${id}`
             })
-        }   
+        } else {
+            try {
+                await user.destroy();
+                return res.status(400).send({
+                    message: `User deleted for id ${id}`
+                });
+        
+            } catch (error) {
+                return res.status(500).send({
+                    message: `An error occured when deleting the user: ${error.message}`
+                });
+                
+            }
+        } 
     } catch (err) {
         return res.status(400).send({message: "Error finding user."})
     }
 
-    try {
-        await user.destroy();
-        return res.status(400).send({
-            message: `User deleted for id ${id}`
-        });
-
-    } catch (error) {
-        return res.status(500).send({
-            message: `An error occured when deleting the user: ${error.message}`
-        });
-        
-    }
+    
 
 };

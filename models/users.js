@@ -1,5 +1,6 @@
 //const { sequelize } = require(".");
 const bcrypt = require('bcrypt-nodejs');
+const {Role, Application} = require('../models')
 
 module.exports = (sequelize, DataTypes) => {
     const User = sequelize.define("User", {
@@ -22,10 +23,8 @@ module.exports = (sequelize, DataTypes) => {
         password: {
             type: DataTypes.STRING,
             allowNull: false
-        },
-        role_id: {
-            type: DataTypes.INTEGER
-        },
+        }
+
     });
     return User;
 }

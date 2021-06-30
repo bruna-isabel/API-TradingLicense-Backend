@@ -13,7 +13,6 @@ exports.login = async (req, res) => {
             message: "Please insert all details"
         });
     }
-
     let result = {};
     try {
         result = await User.findOne({ where: { email } });
@@ -30,7 +29,6 @@ exports.login = async (req, res) => {
                     //gets token
                     const token = jwt.sign({id: user.id}, process.env.ACCESS_TOKEN_SECRET)
                     res.json({token: token})
-    
                 } else {
                     res.send('Not a Match')
                 }
@@ -38,24 +36,17 @@ exports.login = async (req, res) => {
                 res.status(500).send()
                 console.log(err.message)
             }
-    
         } else { 
             return res.status(400).send('Theres no user matching those details');
-        }
-        
+        } 
     } catch (error) {
         return res.status(409).json({message: "Not able to find user"});
     }
-
-    
- 
 };
 
 exports.signup = async (req, res) => {
-
     const {name, email, password} = req.body;
     console.log(req.body)
-
     //Validate Listing
     if (!name || !email || !password ){
         return res.status(400).send({message: "Please enter all the fields" });
@@ -89,7 +80,6 @@ exports.signup = async (req, res) => {
     } catch (error) {
         return res.status(500).json({message: error.message});
     }
-
 };
 
 // FORMAT OF TOKEN 
@@ -108,4 +98,23 @@ exports.authenticateToken = (req, res, next)  => {
         req.user = user
         next() 
     })
+}
+
+//User Access Role
+exports.authUser = (req, res, next) => {
+    if (req.user == null) {
+        res.status(403)
+        return res.send("You need to sign in")
+    }
+    next()
+}
+
+exports.authRole = (req, res, next, role) => {
+    return (req, res, next) => {
+         if (req.body.RoleId == role) {
+             console.log(req.body.RoleId)
+            res.status(401)
+            return res.send("Not Allowed")
+         }
+    }
 }

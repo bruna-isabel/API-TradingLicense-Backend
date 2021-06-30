@@ -65,7 +65,6 @@ exports.updateApplication = async (req, res) => {
     const id = req.params.id;
 
     try {
-
         //Finds listing for certain id
         const application = await Application.findOne({ where: { id } });
 
@@ -108,28 +107,25 @@ exports.deleteApplication = async (req, res) => {
                 id,
             },
         });
-    
         //if listing doesn't exist
         if (!application) {
             return res.status(400).send({
                 message: `Application unexistent for id ${id}`
             });
+        } else {
+            try {
+                await application.destroy();
+                return res.status(400).send({
+                    message: `Listing deleted for id ${id}`
+                });
+        
+            } catch (error) {
+                return res.status(500).send({
+                    message: `An error occured when deleting the listing: ${error.message}`
+                });     
+            }
         }
     } catch (err) {
         return res.status(500).send({message: "Error finding application"})
-    }
-    
-
-    try {
-        await application.destroy();
-        return res.status(400).send({
-            message: `Listing deleted for id ${id}`
-        });
-
-    } catch (error) {
-        return res.status(500).send({
-            message: `An error occured when deleting the listing: ${error.message}`
-        });
-        
-    }
+    }   
 };

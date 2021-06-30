@@ -37,18 +37,44 @@ db.Sequelize = Sequelize;
 
 db.users = require("../models/users.js")(sequelize, Sequelize);
 db.roles = require("../models/roles.js")(sequelize, Sequelize);
+db.applications = require("../models/applications.js")(sequelize, Sequelize);
 
+//roles
+db.roles.hasMany(db.users);
+db.users.belongsTo(db.roles);
+
+//applications
+db.users.hasMany(db.applications);
+db.applications.belongsTo(db.users);
+
+
+/*
 db.roles.belongsToMany(db.users, {
   through: "user_roles",
   foreignKey: "roleId",
   otherKey: "userId"
 });
+
 db.users.belongsToMany(db.roles, {
   through: "user_roles",
   foreignKey: "userId",
   otherKey: "roleId"
 });
 
+db.applications.belongsTo(db.users);
+*/
 db.ROLES = ["user", "admin"];
+
+//Some Mock Data
+db.users =  [
+  {id: 1, name: "Bruna", email: "bruna@email.com", password: "something", RoleId: 1},
+  {id: 2, name: "Fred", email: "bruna@email.com", password: "something", RoleId: 2}
+]
+
+db.applications = [
+  {id: 1, business_name: "Bruna's Application", description: "bruna's description", address: "Bruna's Address", UserId: 1},
+  {id: 2, business_name: "Fred's Application", description: "fred's description", address: "Fred's Address", UserId: 2}
+]
+
 
 module.exports = db;

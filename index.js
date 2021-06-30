@@ -8,7 +8,7 @@ const db = require('./models');
 const Role = db.roles;
 
 //routes
-const home = require('./routes/home')
+const mainRoutes = require('./routes/mainRoutes')
 const applications = require('./routes/applications');
 const users = require('./routes/users');
 const auth = require('./routes/auth');
@@ -17,7 +17,7 @@ const app = express();
 app.use(express.json());
 
 //Uses the routes
-app.use('/', home)
+app.use('/', mainRoutes)
 app.use('/applications', applications);
 app.use('/users', users)
 app.use('/auth', auth)
