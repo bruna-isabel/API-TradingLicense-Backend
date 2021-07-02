@@ -1,3 +1,4 @@
 //ignore database info
 config.js
 auth.config.js
+node_modules
