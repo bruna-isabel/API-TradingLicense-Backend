@@ -7,6 +7,19 @@ exports.getApplications = async (req, res) => {
         await Application.findAll()
         .then((applications) => {
             res.status(201).json(applications);
+
+            const body = result.map(application => {
+                // extract the post fields we want to send back (summary details)
+                const {ID, business_name, description, date_founded, address} = application;
+                // add links to the post summaries for HATEOAS complianc
+                // clients can follow these to find related resources
+                const links = {
+                    self: `${ctx.protocol}://${ctx.host}${prefix}/${application.ID}`
+                }
+                return {ID, business_name, description, date_founded, address, links};
+            });
+                
+            ctx.body = body;
         }).catch ((error) => {
             res.status(409).json({message: error.message});
         })
@@ -72,7 +85,6 @@ exports.updateApplication = async (req, res) => {
         if (!application) {
             return res.status(400).send({ message: `Application unexistent for id ${id}` });
         }
-
         try {
             let updatedApplication = await application.update({
                 business_name, 

@@ -108,8 +108,8 @@ exports.authUser = (req, res, next) => {
     }
     next()
 }
-
-exports.authRole = (req, res, next, role) => {
+//partial function with role as a param
+exports.authRole = (role) => {
     return (req, res, next) => {
          if (req.body.RoleId == role) {
              console.log(req.body.RoleId)
