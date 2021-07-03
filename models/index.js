@@ -63,10 +63,10 @@ db.users.belongsToMany(db.roles, {
 
 db.applications.belongsTo(db.users);
 */
-db.ROLES = ["user", "admin"];
+//db.ROLES = ["user", "admin"];
 
 //Some Mock Data
-db.users =  [
+/*db.users =  [
   {id: 1, name: "Bruna", email: "bruna@email.com", password: "something", RoleId: 1},
   {id: 2, name: "Fred", email: "bruna@email.com", password: "something", RoleId: 2}
 ]
@@ -74,7 +74,7 @@ db.users =  [
 db.applications = [
   {id: 1, business_name: "Bruna's Application", description: "bruna's description", address: "Bruna's Address", UserId: 1},
   {id: 2, business_name: "Fred's Application", description: "fred's description", address: "Fred's Address", UserId: 2}
-]
+]*/
 
 
 module.exports = db;

@@ -4,7 +4,9 @@
 const {User} = require("../models/users");
 
 module.exports = (sequelize, DataTypes) => {
-    const Application = sequelize.define("Application", {
+		
+	try { 
+		const Application = sequelize.define("Application", {
         id: {
             type: DataTypes.INTEGER,
             allowNull: false,
@@ -30,6 +32,18 @@ module.exports = (sequelize, DataTypes) => {
             type: DataTypes.STRING
         },
        
-    });
-        return Application;
+    })
+		
+		return Application;
+		
+	} catch(err) {
+		
+    if(err instanceof UniqueConstraintError){
+        throw new Error('duplicate error')
+    } else{
+        throw err
+    }
+	}
+	
 }
+    

@@ -1,7 +1,7 @@
 {
   "development": {
     "username": "root",
-    "password": "password123",
+    "password": "codio",
     "database": "canine_shelter_db",
     "host": "localhost",
     "dialect": "mysql"

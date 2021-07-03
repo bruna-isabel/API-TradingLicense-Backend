@@ -1,4 +1,3 @@
-const bcrypt = require('bcrypt-nodejs');
 
 module.exports = (sequelize, DataTypes) => {
     const Role = sequelize.define("Role", {
