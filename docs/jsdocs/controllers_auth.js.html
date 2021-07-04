@@ -1,0 +1,211 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: controllers/auth.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: controllers/auth.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>require('dotenv').config();
+
+const { User } = require('../models');
+const bcrypt = require('bcrypt')
+const jwt = require('jsonwebtoken');
+
+
+/**
+   * @function 
+   * @name login
+   * Function to login users in API 
+   * @param {email, password} - User information to login
+   * @returns {object} access jwt token - token to confirm user exists 
+   * @throws {error} - if user is not authorized 
+*/
+
+exports.login = async (req, res) => {
+
+    //tries to find user by email 
+    const email = req.body.email;
+    if (!email) {
+        return res.status(400).send({
+            message: "Please insert all details"
+        });
+    }
+    let result = {};
+    try {
+        result = await User.findOne({ where: { email } });
+        console.log(result)
+
+        if (Object.keys(result).length) {
+            user = result.dataValues
+            console.log(user)
+            
+            //Compares passwords
+            try {
+                let passwordsMatch = await bcrypt.compare(req.body.password, user.password)
+                if (passwordsMatch) {
+                    //gets token
+                    const token = jwt.sign({id: user.id}, process.env.ACCESS_TOKEN_SECRET)
+                    res.json({token: token})
+                } else {
+                    res.send('Not a Match')
+                }
+            } catch (err) {
+                res.status(500).send()
+                console.log(err.message)
+            }
+        } else { 
+            return res.status(400).send('Theres no user matching those details');
+        } 
+    } catch (error) {
+        return res.status(409).json({message: "Not able to find user"});
+    }
+};
+
+/**
+   * @function 
+   * @name signup
+   * Function create new users in system
+   * @param {name, email, password} - User information to sign up 
+   * @returns {object}  - 200 status, new user json information
+   * @throws {error} - if parameters not correct. if user does not exist
+*/
+
+exports.signup = async (req, res) => {
+    const {name, email, password} = req.body;
+    console.log(req.body)
+    //Validate Listing
+    if (!name || !email || !password ){
+        return res.status(400).send({message: "Please enter all the fields" });
+    }
+    try {
+        //If email already exists
+            let emailRegistered = await User.findOne({
+                where: {
+                email,
+                },
+            });
+
+            if (emailRegistered) {
+                return res.status(400).send({
+                message: 'An account with that email already exists!',
+                });
+            }
+    } catch (err) {
+        res.status(400).send({message: "We cant find a user with that email."})
+    }
+ 
+    //Creates User
+    try {
+        const hashedPass = await bcrypt.hash(password, 10)
+        let newUser = await User.create({
+            name: name, 
+            email: email,
+            password: hashedPass
+        });
+        return res.json(newUser);
+    } catch (error) {
+        return res.status(500).json({message: error.message});
+    }
+};
+
+
+/**
+ * MIDDLEWARE FUNCTION
+   * @function 
+   * @name authenticateTokem
+   * Function that verifies if user token is valid 
+   * @param {token} - User Token generated 
+   * @returns {status} 200 - Status 200 to indicate user token is valid
+   * @throws {error} - if token not valid 
+   * 
+   * FORMAT OF TOKEN : Authorization: Bearer &lt;token>
+*/
+
+exports.authenticateToken = (req, res, next)  => {
+    const authHeader  =  req.headers['authorization']
+    //return undefined if the authheader is there
+    const token = authHeader &amp;&amp; authHeader.split(' ')[1]
+
+    if (!token) return res.sendStatus(401)
+
+    jwt.verify(token, process.env.ACCESS_TOKEN_SECRET, (err, user) => {
+        if (err) return res.sendStatus(403)
+        req.user = user
+        next() 
+    })
+}
+
+/**
+ * MIDDLEWARE FUNCTION
+   * @function 
+   * @name authRole
+   * Function that verifies user role 
+   * @param {user.Role.id} - User Role ID
+   * @returns {status}- Status 200 to indicate if role is authorised
+   *
+*/
+//partial function with role as a param
+exports.authRole = (role) => {
+    return (req, res, next) => {
+         if (req.body.RoleId == role) {
+             console.log(req.body.RoleId)
+            res.status(401)
+            return res.send("Not Allowed")
+         }
+    }
+}</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-controllers_validation.html">controllers/validation</a></li><li><a href="module-models_application.html">models/application</a></li></ul><h3>Global</h3><ul><li><a href="global.html#authenticateTokemFunctionthatverifiesifusertokenisvalid">authenticateTokem
+Function that verifies if user token is valid</a></li><li><a href="global.html#authRoleFunctionthatverifiesuserrole">authRole
+Function that verifies user role</a></li><li><a href="global.html#createApplicationFunctiontocreateanewapplicationdothedataabase">createApplication
+Function to create a new application do the dataabase</a></li><li><a href="global.html#deleteApplicationFunctiontodeleteanewapplicationdothedatabase">deleteApplication
+Function to delete a new application do the database</a></li><li><a href="global.html#deleteUserFunctiontodeleteanUser">deleteUser
+Function to delete an User</a></li><li><a href="global.html#getApplicationsByIdFunctiontogetallapplicationsfromthedatabase">getApplicationsById
+Function to get all applications from the database</a></li><li><a href="global.html#getUserByEmailFunctiontogetuserbytemail">getUserByEmail
+Function to get user byt email</a></li><li><a href="global.html#getUserByIdFunctiontogetuserid">getUserById
+Function to get user id</a></li><li><a href="global.html#loginFunctiontologinusersinAPI">login
+Function to login users in API</a></li><li><a href="global.html#signupFunctioncreatenewusersinsystem">signup
+Function create new users in system</a></li><li><a href="global.html#updateApplicationFunctiontoupdatethedataofthenewapplicationdothedataabase">updateApplication
+Function to update the data of the new application do the dataabase</a></li><li><a href="global.html#updateUserFunctiontoupdateUser">updateUser 
+Function to update User</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.7</a> on Sun Jul 04 2021 18:53:15 GMT+0000 (GMT)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

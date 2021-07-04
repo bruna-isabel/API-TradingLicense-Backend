@@ -1,0 +1,262 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>JSDoc: Source: controllers/users.js</title>
+
+    <script src="scripts/prettify/prettify.js"> </script>
+    <script src="scripts/prettify/lang-css.js"> </script>
+    <!--[if lt IE 9]>
+      <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+    <![endif]-->
+    <link type="text/css" rel="stylesheet" href="styles/prettify-tomorrow.css">
+    <link type="text/css" rel="stylesheet" href="styles/jsdoc-default.css">
+</head>
+
+<body>
+
+<div id="main">
+
+    <h1 class="page-title">Source: controllers/users.js</h1>
+
+    
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>// Listings Controller
+const { User } = require('../models');
+const bcrypt = require('bcrypt');
+const { rest } = require('lodash');
+
+//Gets all users
+exports.getUsers = async (req, res) => {
+    try {
+       await User.findAll()
+        .then((users) => {
+            res.status(201).json(users);
+        }).catch ((error) => {
+            res.status(409).json({message: error.message});
+        }) 
+    } catch (err) {
+        res.status(500).json({message: error.message});
+    }      
+};
+
+exports.createUser = async (req, res) => {
+
+    //tries to find user by email 
+    const email = req.body.email;
+    if (!email) {
+        return res.status(400).send({
+            message: "Please insert all details"
+        });
+    }
+    let result = {};
+    try {
+        result = await User.findOne({ where: { email } });
+        console.log(result)
+
+        if (Object.keys(result).length) {
+            user = result.dataValues
+            console.log(user)
+            
+            //Compares passwords
+            try {
+                let passwordsMatch = await bcrypt.compare(req.body.password, user.password)
+                if (passwordsMatch) {
+                    //gets token
+                    const token = jwt.sign({id: user.id}, process.env.ACCESS_TOKEN_SECRET)
+                    res.json({token: token})
+                } else {
+                    res.send('Not a Match')
+                }
+            } catch (err) {
+                res.status(500).send()
+                console.log(err.message)
+            }
+        } else { 
+            return res.status(400).send('Theres no user matching those details');
+        } 
+    } catch (error) {
+        return res.status(409).json({message: "Not able to find user"});
+    }
+};
+
+
+/**
+   * @function
+   * @name getUserById
+   * Function to get user id 
+   * @param {id} - User Id 
+   * @returns {object} the object containing each application information 
+   * @throws {error} if can't application by that id 
+*/
+exports.getUserById = async (req, res) => {
+    const id = req.params.id;
+    if (!id) {
+        return res.status(400).send({
+            message: "Id entered doesn't exist."
+        });
+    }
+    try {
+        const user = await User.findOne({ where: { id } });
+        res.status(201).json(user);
+        return user;
+    } catch (error) {
+        res.status(409).json({message: error.message});
+    }
+};
+
+/**
+   * @function
+   * @name getUserByEmail
+   * Function to get user byt email
+   * @param {email} - User email 
+   * @returns {object} - returns user that corresponds to email 
+   * @throws {error} - if can't find user with that email 
+*/
+
+exports.getUserByEmail = async (req, res) => {
+    const email = req.body.email;
+    if (!email) {
+        return res.status(400).send({
+            message: "Theres no user with that email"
+        });
+    }
+    try {
+        const user = await User.findOne({ where: { email } });
+        res.status(201).json(user);
+        return user;
+    } catch (error) {
+        res.status(409).json({message: error.message});
+    }
+};
+
+/**
+   * @function
+   * @name updateUser 
+   * Function to update User
+   * @param {name, email, password} - Information to update user with, 
+   * @param {id} - Id to know which user to update
+   * @returns {object}-  the object containing each user information 
+   * @throws {error} - if can't find user by that id 
+*/
+exports.updateUser = async (req, res) => {
+
+    const {name, email, password} = req.body;
+    const id = req.params.id;
+
+    try {
+        //Finds listing for certain id
+        const user = await User.findOne({ where: { id } });
+        //If listing does not exist
+        if (!user) {
+            return res.status(400).send({ message: `User unexistent for id ${id}` });
+        }
+
+        try {
+            let updatedUser = await user.update({
+                name: name, 
+                email: email,
+                password: password
+            })
+            return res.json(updatedUser);
+            
+        } catch (error) {
+            return res.sendStatus(500)({message: error.message});
+        }
+    } catch (error) {
+        return res.status(500).json({message: error.message});
+    }
+    
+};
+
+/**
+   * @function
+   * @name deleteUser
+   * Function to delete an User
+   * @param {id} - User Id 
+   * @returns {status} - 200 Status if user is deleted 
+   * @throws {error} if can't user by that id 
+*/
+
+//Deletes the user
+exports.deleteUser = async (req, res) => {
+    const id = req.params.id;
+
+    //if invalid id
+    if (!id) {
+        return res.status(400).send({
+            message: "Please enter the id!"
+        });
+    }
+
+    try {
+        const user = await User.findOne({
+            where: {
+                id,
+            },
+        });
+        //if user doesn't exist
+        if (!user) {
+            return res.status(400).send({
+                message: `User unexistent for id ${id}`
+            })
+        } else {
+            try {
+                await user.destroy();
+                return res.status(400).send({
+                    message: `User deleted for id ${id}`
+                });
+        
+            } catch (error) {
+                return res.status(500).send({
+                    message: `An error occured when deleting the user: ${error.message}`
+                });
+                
+            }
+        } 
+    } catch (err) {
+        return res.status(400).send({message: "Error finding user."})
+    }
+
+    
+
+};</code></pre>
+        </article>
+    </section>
+
+
+
+
+</div>
+
+<nav>
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-controllers_validation.html">controllers/validation</a></li><li><a href="module-models_application.html">models/application</a></li></ul><h3>Global</h3><ul><li><a href="global.html#authenticateTokemFunctionthatverifiesifusertokenisvalid">authenticateTokem
+Function that verifies if user token is valid</a></li><li><a href="global.html#authRoleFunctionthatverifiesuserrole">authRole
+Function that verifies user role</a></li><li><a href="global.html#createApplicationFunctiontocreateanewapplicationdothedataabase">createApplication
+Function to create a new application do the dataabase</a></li><li><a href="global.html#deleteApplicationFunctiontodeleteanewapplicationdothedatabase">deleteApplication
+Function to delete a new application do the database</a></li><li><a href="global.html#deleteUserFunctiontodeleteanUser">deleteUser
+Function to delete an User</a></li><li><a href="global.html#getApplicationsByIdFunctiontogetallapplicationsfromthedatabase">getApplicationsById
+Function to get all applications from the database</a></li><li><a href="global.html#getUserByEmailFunctiontogetuserbytemail">getUserByEmail
+Function to get user byt email</a></li><li><a href="global.html#getUserByIdFunctiontogetuserid">getUserById
+Function to get user id</a></li><li><a href="global.html#loginFunctiontologinusersinAPI">login
+Function to login users in API</a></li><li><a href="global.html#signupFunctioncreatenewusersinsystem">signup
+Function create new users in system</a></li><li><a href="global.html#updateApplicationFunctiontoupdatethedataofthenewapplicationdothedataabase">updateApplication
+Function to update the data of the new application do the dataabase</a></li><li><a href="global.html#updateUserFunctiontoupdateUser">updateUser 
+Function to update User</a></li></ul>
+</nav>
+
+<br class="clear">
+
+<footer>
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.7</a> on Sun Jul 04 2021 18:53:15 GMT+0000 (GMT)
+</footer>
+
+<script> prettyPrint(); </script>
+<script src="scripts/linenumber.js"> </script>
+</body>
+</html>

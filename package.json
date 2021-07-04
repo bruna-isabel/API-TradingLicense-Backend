@@ -33,5 +33,8 @@
   "repository": {
     "type": "git",
     "url": "https://github.coventry.ac.uk/ricardob/api-canine-shelter-backend.git"
+  },
+  "devDependencies": {
+    "jsdoc": "^3.6.7"
   }
 }
