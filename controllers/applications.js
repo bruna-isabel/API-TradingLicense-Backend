@@ -1,7 +1,6 @@
 // Listings Controller
 const { Application } = require('../models');
-
-//Gets all listings
+  
 exports.getApplications = async (req, res) => {
     try {
         await Application.findAll()
@@ -29,7 +28,15 @@ exports.getApplications = async (req, res) => {
         
 };
 
-//Gets Listings by ID
+/**
+   * @function
+   * @name getApplicationsById
+   * Function to get all applications from the database
+   * @param {id} - Application Id 
+   * @returns {object} the object containing each application information 
+   * @throws {error} if can't application by that id 
+*/
+
 exports.getApplicationById = async (req, res) => {
     const id = req.params.id;
     if (!id) {
@@ -45,7 +52,15 @@ exports.getApplicationById = async (req, res) => {
     }
 };
 
-//Creates Listings
+
+/**
+   * @function
+   * @name createApplication
+   * Function to create a new application do the dataabase 
+   * @param {business_name, description, date_founded, address} - application information 
+   * @returns {object} - the new application created 
+*/
+
 exports.createApplication = async (req, res) => {
 
     const {business_name, description, date_founded, address} = req.body;
@@ -71,7 +86,13 @@ exports.createApplication = async (req, res) => {
 
 };
 
-// Updates Listing
+/**
+   * @function
+   * @name updateApplication
+   * Function to update the data of the new application do the dataabase 
+   * @param {business_name, description, date_founded, address} - application information to update 
+   * @returns {object} - the new application with updated information 
+*/
 exports.updateApplication = async (req, res) => {
 
     const {business_name, description, date_founded, address} = req.body;
@@ -103,7 +124,13 @@ exports.updateApplication = async (req, res) => {
     
 };
 
-//Deletes a listing
+/**
+   * @function
+   * @name deleteApplication
+   * Function to delete a new application do the database 
+   * @param {id} - id of the application to the delete
+   * @returns {object} - status 200, applcation was deleted
+*/
 exports.deleteApplication = async (req, res) => {
     const id = req.params.id;
 
@@ -127,7 +154,7 @@ exports.deleteApplication = async (req, res) => {
         } else {
             try {
                 await application.destroy();
-                return res.status(400).send({
+                return res.status(200).send({
                     message: `Listing deleted for id ${id}`
                 });
         

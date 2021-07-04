@@ -57,7 +57,15 @@ exports.createUser = async (req, res) => {
     }
 };
 
-//Gets users by ID
+
+/**
+   * @function
+   * @name getUserById
+   * Function to get user id 
+   * @param {id} - User Id 
+   * @returns {object} the object containing each application information 
+   * @throws {error} if can't application by that id 
+*/
 exports.getUserById = async (req, res) => {
     const id = req.params.id;
     if (!id) {
@@ -73,6 +81,15 @@ exports.getUserById = async (req, res) => {
         res.status(409).json({message: error.message});
     }
 };
+
+/**
+   * @function
+   * @name getUserByEmail
+   * Function to get user byt email
+   * @param {email} - User email 
+   * @returns {object} - returns user that corresponds to email 
+   * @throws {error} - if can't find user with that email 
+*/
 
 exports.getUserByEmail = async (req, res) => {
     const email = req.body.email;
@@ -90,7 +107,15 @@ exports.getUserByEmail = async (req, res) => {
     }
 };
 
-// Updates Userss
+/**
+   * @function
+   * @name updateUser 
+   * Function to update User
+   * @param {name, email, password} - Information to update user with, 
+   * @param {id} - Id to know which user to update
+   * @returns {object}-  the object containing each user information 
+   * @throws {error} - if can't find user by that id 
+*/
 exports.updateUser = async (req, res) => {
 
     const {name, email, password} = req.body;
@@ -120,6 +145,15 @@ exports.updateUser = async (req, res) => {
     }
     
 };
+
+/**
+   * @function
+   * @name deleteUser
+   * Function to delete an User
+   * @param {id} - User Id 
+   * @returns {status} - 200 Status if user is deleted 
+   * @throws {error} if can't user by that id 
+*/
 
 //Deletes the user
 exports.deleteUser = async (req, res) => {

@@ -2,6 +2,11 @@
 const {Role, Application} = require('../models')
 
 module.exports = (sequelize, DataTypes) => {
+	
+		/**
+			* @function
+			* @model User - User model 
+*/
     const User = sequelize.define("User", {
         id: {
             type: DataTypes.INTEGER,

@@ -4,6 +4,16 @@ const { User } = require('../models');
 const bcrypt = require('bcrypt')
 const jwt = require('jsonwebtoken');
 
+
+/**
+   * @function 
+   * @name login
+   * Function to login users in API 
+   * @param {email, password} - User information to login
+   * @returns {object} access jwt token - token to confirm user exists 
+   * @throws {error} - if user is not authorized 
+*/
+
 exports.login = async (req, res) => {
 
     //tries to find user by email 
@@ -44,6 +54,15 @@ exports.login = async (req, res) => {
     }
 };
 
+/**
+   * @function 
+   * @name signup
+   * Function create new users in system
+   * @param {name, email, password} - User information to sign up 
+   * @returns {object}  - 200 status, new user json information
+   * @throws {error} - if parameters not correct. if user does not exist
+*/
+
 exports.signup = async (req, res) => {
     const {name, email, password} = req.body;
     console.log(req.body)
@@ -82,10 +101,19 @@ exports.signup = async (req, res) => {
     }
 };
 
-// FORMAT OF TOKEN 
-// Authoriazation: Bearer <token>
 
-//Middleware 
+/**
+ * MIDDLEWARE FUNCTION
+   * @function 
+   * @name authenticateTokem
+   * Function that verifies if user token is valid 
+   * @param {token} - User Token generated 
+   * @returns {status} 200 - Status 200 to indicate user token is valid
+   * @throws {error} - if token not valid 
+   * 
+   * FORMAT OF TOKEN : Authorization: Bearer <token>
+*/
+
 exports.authenticateToken = (req, res, next)  => {
     const authHeader  =  req.headers['authorization']
     //return undefined if the authheader is there
@@ -100,14 +128,15 @@ exports.authenticateToken = (req, res, next)  => {
     })
 }
 
-//User Access Role
-exports.authUser = (req, res, next) => {
-    if (req.user == null) {
-        res.status(403)
-        return res.send("You need to sign in")
-    }
-    next()
-}
+/**
+ * MIDDLEWARE FUNCTION
+   * @function 
+   * @name authRole
+   * Function that verifies user role 
+   * @param {user.Role.id} - User Role ID
+   * @returns {status}- Status 200 to indicate if role is authorised
+   *
+*/
 //partial function with role as a param
 exports.authRole = (role) => {
     return (req, res, next) => {
