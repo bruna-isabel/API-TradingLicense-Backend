@@ -1,5 +1,20 @@
+/**
+
+* A module to run JSON Schema based validation on request/response data.
+
+* @module controllers/validation
+
+* @author Bruna Coimbra
+
+* @see schemas/* for JSON Schema definition files
+
+*/
+
 const {Validator, ValidationError} = require('jsonschema');
-const schema = require('../schemas/application.schema.js');
+const applicationSchema = require('../schemas/application.json');
+const userSchema = require('../schemas/user.json');
+
+
 const v = new Validator();
 
 exports.validateApplication = async (ctx, next) => {
@@ -11,7 +26,7 @@ exports.validateApplication = async (ctx, next) => {
 
 	const body = ctx.request.body;
 	try {
-		v.validate(body, schema, validationOptions);
+		v.validate(body, applicationSchema, validationOptions);
 		await next();
 
 	} catch (error) {
@@ -21,7 +36,6 @@ exports.validateApplication = async (ctx, next) => {
 			ctx.status = 400;
 
 		} else {
-
 			throw error;
 		}
 	}
@@ -38,7 +52,7 @@ exports.validateUser = async (ctx, next) => {
 
 	const body = ctx.request.body;
 	try {
-		v.validate(body, schema, validationOptions);
+		v.validate(body, userSchema, validationOptions);
 		await next();
 
 	} catch (error) {

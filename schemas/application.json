@@ -1,0 +1,130 @@
+{
+"$schema": "http://json-schema.org/draft-04/schema#",
+"definitions": {
+	"application": {
+		"id": "#application",
+		"title": "Application",
+		"description": "Application for a trading company",
+		"type": "object",
+		"properties": {
+			"business_name": {
+				"description": "The name of the business applying for a trading company ",
+				"type": "string"
+				},
+			"description": {
+						"description": "Description of the business applying",
+						"type": "string"
+				},
+				"address": {
+						"description": "Address of bussiness",
+						"type": "string"
+				},
+				"date_founded": {
+						"description": "When was the business founded",
+						"type": "string"
+				}
+			}
+		"required": ["business_name", "description", "address", "date_founded"],
+		"additionalProperties": false
+		},
+		
+		"applicationIndividual": {
+      "$id": "#applicationIndividual",
+      "title": "Application",
+      "description": "Data visible to users and admins.",
+      "type": "object",
+      "properties": {
+				"business_name": {
+				"description": "Business name",
+				"type": "string"
+				},
+				"description": {
+					"description": "Description of business",
+					"type": "string",
+				},
+				"address": {
+						"description": "Address of bussiness",
+						"type": "string"
+				},
+				"date_founded": {
+						"description": "When was the business founded",
+						"type": "string"
+				}	
+      }
+    },
+    
+    
+    "applicationUpdate": {
+      "$id": "#applicationUpdate",
+      "title": "Application Update",
+      "description": "Data a user can update on application",
+      "type": "object",
+      "business_name": {
+				"description": "Business name",
+				"type": "string"
+				},
+				"description": {
+					"description": "Description of business",
+					"type": "string",
+				},
+				"address": {
+						"description": "Address of bussiness",
+						"type": "string"
+				},
+				"date_founded": {
+						"description": "When was the business founded",
+						"type": "string"
+				}
+      "additionalProperties": false
+    },
+    
+    
+    "applicationList": {
+      "$id": "#applicationList",
+      "title": "Applications List",
+      "description": "List of all applications visible to admin only.",
+      "type": "array",
+      "items": {"$ref": "#/definitions/applicationIndividual"}
+    },
+    
+    
+    "applicationUpdated": {
+      "$id": "#applicationUpdated",
+      "title": "Application Updated",
+      "description": "Confirmation of a successful application update/creation",
+      "type": "object",
+      "properties": {
+        "ID": {
+          "description": "ID of the updated application record",
+          "type": "integer"
+        },
+        "updated": {
+          "description": "Boolean indicator of success",
+          "type": "boolean"
+        },
+        "link": {
+          "description": "Path to retrieve application record",
+          "type": "string",
+          "format": "uri"
+        }
+      }
+    },
+    
+    "applicationDeleted": {
+      "$id": "#applicationDeleted",
+      "title": "Application Deleted",
+      "description": "Confirmation of a successful deletion",
+      "type": "object",
+      "properties": {
+        "ID": {
+          "description": "ID of the updated application record",
+          "type": "integer"
+        },
+        "deleted": {
+          "description": "Boolean indicator of success",
+          "type": "boolean"
+        }
+      }
+    }
+	}
+}
