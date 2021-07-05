@@ -8,8 +8,8 @@
   },
   "test": {
     "username": "root",
-    "password": null,
-    "database": "database_test",
+    "password": "codio",
+    "database": "test_db",
     "host": "localhost",
     "dialect": "mysql"
   },

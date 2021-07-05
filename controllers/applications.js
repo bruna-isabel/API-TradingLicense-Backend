@@ -1,4 +1,15 @@
-// Listings Controller
+/**
+
+* Functions to handle Applications 
+
+* @module controllers/applications
+
+* @author Bruna Coimbra
+
+* @see models/* for the models that require this module
+
+*/
+
 const { Application } = require('../models');
   
 exports.getApplications = async (req, res) => {
@@ -17,10 +28,8 @@ exports.getApplications = async (req, res) => {
                 }
                 return {ID, business_name, description, date_founded, address, links};
             });
-                
-            ctx.body = body;
         }).catch ((error) => {
-            res.status(409).json({message: error.message});
+            return res.status(409).json({message: error.message});
         })
     } catch (err) {
         return res.status(500).json({message: "Error finding applications"})
@@ -30,11 +39,16 @@ exports.getApplications = async (req, res) => {
 
 /**
    * @function
-   * @name getApplicationsById
+   * 
+   * @name -  getApplicationsById
+   * 
    * Function to get all applications from the database
-   * @param {id} - Application Id 
-   * @returns {object} the object containing each application information 
-   * @throws {error} if can't application by that id 
+   * 
+   * @param {int} id - Application Id 
+   * 
+   * @returns {object} - the object containing each application information 
+   * 
+   * @throws {error} -  if can't application by that id 
 */
 
 exports.getApplicationById = async (req, res) => {
@@ -55,9 +69,13 @@ exports.getApplicationById = async (req, res) => {
 
 /**
    * @function
-   * @name createApplication
-   * Function to create a new application do the dataabase 
-   * @param {business_name, description, date_founded, address} - application information 
+   * 
+   * @name - createApplication
+   * 
+   * Function to create a new application do the database 
+   * 
+   * @param {string} [business_name, description, date_founded, address] - application information 
+   * 
    * @returns {object} - the new application created 
 */
 
@@ -88,9 +106,13 @@ exports.createApplication = async (req, res) => {
 
 /**
    * @function
+   * 
    * @name updateApplication
+   * 
    * Function to update the data of the new application do the dataabase 
-   * @param {business_name, description, date_founded, address} - application information to update 
+   * 
+   * @param {string} [business_name, description, date_founded, address] - application information to update 
+   * 
    * @returns {object} - the new application with updated information 
 */
 exports.updateApplication = async (req, res) => {
@@ -126,9 +148,13 @@ exports.updateApplication = async (req, res) => {
 
 /**
    * @function
-   * @name deleteApplication
+   * 
+   * @name - deleteApplication
+   * 
    * Function to delete a new application do the database 
-   * @param {id} - id of the application to the delete
+   * 
+   * @param {int} id - id of the application to the delete
+   * 
    * @returns {object} - status 200, applcation was deleted
 */
 exports.deleteApplication = async (req, res) => {

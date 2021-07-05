@@ -318,6 +318,8 @@ Function that verifies user role<span class="signature">()</span><span class="ty
     <thead>
     <tr>
         
+        <th>Name</th>
+        
 
         <th>Type</th>
 
@@ -334,11 +336,13 @@ Function that verifies user role<span class="signature">()</span><span class="ty
 
         <tr>
             
+                <td class="name"><code>user.Role.id</code></td>
+            
 
             <td class="type">
             
                 
-<span class="param-type">user.Role.id</span>
+<span class="param-type">int</span>
 
 
             
@@ -447,307 +451,8 @@ Function that verifies user role<span class="signature">()</span><span class="ty
     
 
     
-    <h4 class="name" id="createApplicationFunctiontocreateanewapplicationdothedataabase"><span class="type-signature"></span>createApplication
-Function to create a new application do the dataabase<span class="signature">()</span><span class="type-signature"> &rarr; {object}</span></h4>
-    
-
-    
-
-
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-
-            <td class="type">
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="controllers_applications.js.html">controllers/applications.js</a>, <a href="controllers_applications.js.html#line56">line 56</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    - the new application created
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">object</span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="deleteApplicationFunctiontodeleteanewapplicationdothedatabase"><span class="type-signature"></span>deleteApplication
-Function to delete a new application do the database<span class="signature">()</span><span class="type-signature"> &rarr; {object}</span></h4>
-    
-
-    
-
-
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">id</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">id of the application to the delete</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="controllers_applications.js.html">controllers/applications.js</a>, <a href="controllers_applications.js.html#line127">line 127</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    - status 200, applcation was deleted
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">object</span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-
-
-        
-            
-
-    
-
-    
     <h4 class="name" id="deleteUserFunctiontodeleteanUser"><span class="type-signature"></span>deleteUser
-Function to delete an User<span class="signature">()</span><span class="type-signature"> &rarr; {status}</span></h4>
+Function to delete an User<span class="signature">(id)</span><span class="type-signature"> &rarr; {status}</span></h4>
     
 
     
@@ -769,6 +474,8 @@ Function to delete an User<span class="signature">()</span><span class="type-sig
     <thead>
     <tr>
         
+        <th>Name</th>
+        
 
         <th>Type</th>
 
@@ -785,11 +492,13 @@ Function to delete an User<span class="signature">()</span><span class="type-sig
 
         <tr>
             
+                <td class="name"><code>id</code></td>
+            
 
             <td class="type">
             
                 
-<span class="param-type">id</span>
+<span class="param-type">int</span>
 
 
             
@@ -910,187 +619,6 @@ Function to delete an User<span class="signature">()</span><span class="type-sig
     <dd>
         
 <span class="param-type">status</span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-
-
-        
-            
-
-    
-
-    
-    <h4 class="name" id="getApplicationsByIdFunctiontogetallapplicationsfromthedatabase"><span class="type-signature"></span>getApplicationsById
-Function to get all applications from the database<span class="signature">()</span><span class="type-signature"> &rarr; {object}</span></h4>
-    
-
-    
-
-
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-
-            <td class="type">
-            
-                
-<span class="param-type">id</span>
-
-
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last">Application Id</td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="controllers_applications.js.html">controllers/applications.js</a>, <a href="controllers_applications.js.html#line31">line 31</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Throws:</h5>
-
-        
-
-<dl>
-    <dt>
-        <div class="param-desc">
-        if can't application by that id
-        </div>
-    </dt>
-    <dd></dd>
-    <dt>
-        <dl>
-            <dt>
-                Type
-            </dt>
-            <dd>
-                
-<span class="param-type">error</span>
-
-
-            </dd>
-        </dl>
-    </dt>
-    <dd></dd>
-</dl>
-
-
-    
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    the object containing each application information
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">object</span>
 
 
     </dd>
@@ -1290,7 +818,7 @@ Function to get user byt email<span class="signature">()</span><span class="type
 
     
     <h4 class="name" id="getUserByIdFunctiontogetuserid"><span class="type-signature"></span>getUserById
-Function to get user id<span class="signature">()</span><span class="type-signature"> &rarr; {object}</span></h4>
+Function to get user id<span class="signature">(id)</span><span class="type-signature"> &rarr; {object}</span></h4>
     
 
     
@@ -1312,6 +840,8 @@ Function to get user id<span class="signature">()</span><span class="type-signat
     <thead>
     <tr>
         
+        <th>Name</th>
+        
 
         <th>Type</th>
 
@@ -1328,11 +858,13 @@ Function to get user id<span class="signature">()</span><span class="type-signat
 
         <tr>
             
+                <td class="name"><code>id</code></td>
+            
 
             <td class="type">
             
                 
-<span class="param-type">id</span>
+<span class="param-type">int</span>
 
 
             
@@ -1413,7 +945,7 @@ Function to get user id<span class="signature">()</span><span class="type-signat
 <dl>
     <dt>
         <div class="param-desc">
-        if can't application by that id
+        -  if can't application by that id
         </div>
     </dt>
     <dd></dd>
@@ -1441,7 +973,7 @@ Function to get user id<span class="signature">()</span><span class="type-signat
 
         
 <div class="param-desc">
-    the object containing each application information
+    - the object containing each application information
 </div>
 
 
@@ -1471,7 +1003,7 @@ Function to get user id<span class="signature">()</span><span class="type-signat
 
     
     <h4 class="name" id="loginFunctiontologinusersinAPI"><span class="type-signature"></span>login
-Function to login users in API<span class="signature">()</span><span class="type-signature"> &rarr; {object}</span></h4>
+Function to login users in API<span class="signature">(email, password<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {object}</span></h4>
     
 
     
@@ -1493,9 +1025,13 @@ Function to login users in API<span class="signature">()</span><span class="type
     <thead>
     <tr>
         
+        <th>Name</th>
+        
 
         <th>Type</th>
 
+        
+        <th>Attributes</th>
         
 
         
@@ -1509,16 +1045,33 @@ Function to login users in API<span class="signature">()</span><span class="type
 
         <tr>
             
+                <td class="name"><code>email, password</code></td>
+            
 
             <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
             
             </td>
 
             
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
 
             
 
-            <td class="description last"></td>
+            <td class="description last">User information to login</td>
         </tr>
 
     
@@ -1647,7 +1200,7 @@ Function to login users in API<span class="signature">()</span><span class="type
 
     
     <h4 class="name" id="signupFunctioncreatenewusersinsystem"><span class="type-signature"></span>signup
-Function create new users in system<span class="signature">()</span><span class="type-signature"> &rarr; {object}</span></h4>
+Function create new users in system<span class="signature">(name, email, password<span class="signature-attributes">opt</span>)</span><span class="type-signature"> &rarr; {object}</span></h4>
     
 
     
@@ -1669,9 +1222,13 @@ Function create new users in system<span class="signature">()</span><span class=
     <thead>
     <tr>
         
+        <th>Name</th>
+        
 
         <th>Type</th>
 
+        
+        <th>Attributes</th>
         
 
         
@@ -1685,16 +1242,33 @@ Function create new users in system<span class="signature">()</span><span class=
 
         <tr>
             
+                <td class="name"><code>name, email, password</code></td>
+            
 
             <td class="type">
+            
+                
+<span class="param-type">string</span>
+
+
             
             </td>
 
             
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
 
             
 
-            <td class="description last"></td>
+            <td class="description last">User information to sign up</td>
         </tr>
 
     
@@ -1822,155 +1396,8 @@ Function create new users in system<span class="signature">()</span><span class=
     
 
     
-    <h4 class="name" id="updateApplicationFunctiontoupdatethedataofthenewapplicationdothedataabase"><span class="type-signature"></span>updateApplication
-Function to update the data of the new application do the dataabase<span class="signature">()</span><span class="type-signature"> &rarr; {object}</span></h4>
-    
-
-    
-
-
-
-
-
-
-
-
-
-
-
-    <h5>Parameters:</h5>
-    
-
-<table class="params">
-    <thead>
-    <tr>
-        
-
-        <th>Type</th>
-
-        
-
-        
-
-        <th class="last">Description</th>
-    </tr>
-    </thead>
-
-    <tbody>
-    
-
-        <tr>
-            
-
-            <td class="type">
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-    </tbody>
-</table>
-
-
-
-
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    <dt class="tag-source">Source:</dt>
-    <dd class="tag-source"><ul class="dummy"><li>
-        <a href="controllers_applications.js.html">controllers/applications.js</a>, <a href="controllers_applications.js.html#line89">line 89</a>
-    </li></ul></dd>
-    
-
-    
-
-    
-
-    
-</dl>
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-<h5>Returns:</h5>
-
-        
-<div class="param-desc">
-    - the new application with updated information
-</div>
-
-
-
-<dl>
-    <dt>
-        Type
-    </dt>
-    <dd>
-        
-<span class="param-type">object</span>
-
-
-    </dd>
-</dl>
-
-    
-
-
-
-
-
-        
-            
-
-    
-
-    
     <h4 class="name" id="updateUserFunctiontoupdateUser"><span class="type-signature"></span>updateUser 
-Function to update User<span class="signature">()</span><span class="type-signature"> &rarr; {object}</span></h4>
+Function to update User<span class="signature">(name, email, password<span class="signature-attributes">opt</span>, id)</span><span class="type-signature"> &rarr; {object}</span></h4>
     
 
     
@@ -1992,9 +1419,13 @@ Function to update User<span class="signature">()</span><span class="type-signat
     <thead>
     <tr>
         
+        <th>Name</th>
+        
 
         <th>Type</th>
 
+        
+        <th>Attributes</th>
         
 
         
@@ -2008,32 +1439,59 @@ Function to update User<span class="signature">()</span><span class="type-signat
 
         <tr>
             
-
-            <td class="type">
-            
-            </td>
-
-            
-
-            
-
-            <td class="description last"></td>
-        </tr>
-
-    
-
-        <tr>
+                <td class="name"><code>name, email, password</code></td>
             
 
             <td class="type">
             
                 
-<span class="param-type">id</span>
+<span class="param-type">string</span>
 
 
             
             </td>
 
+            
+                <td class="attributes">
+                
+                    &lt;optional><br>
+                
+
+                
+
+                
+                </td>
+            
+
+            
+
+            <td class="description last">Information to update user with,</td>
+        </tr>
+
+    
+
+        <tr>
+            
+                <td class="name"><code>id</code></td>
+            
+
+            <td class="type">
+            
+                
+<span class="param-type">int</span>
+
+
+            
+            </td>
+
+            
+                <td class="attributes">
+                
+
+                
+
+                
+                </td>
             
 
             
@@ -2176,25 +1634,21 @@ Function to update User<span class="signature">()</span><span class="type-signat
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-controllers_validation.html">controllers/validation</a></li><li><a href="module-models_application.html">models/application</a></li></ul><h3>Global</h3><ul><li><a href="global.html#authenticateTokemFunctionthatverifiesifusertokenisvalid">authenticateTokem
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-controllers_applications.html">controllers/applications</a></li><li><a href="module-controllers_validation.html">controllers/validation</a></li><li><a href="module-models_application.html">models/application</a></li></ul><h3>Global</h3><ul><li><a href="global.html#authenticateTokemFunctionthatverifiesifusertokenisvalid">authenticateTokem
 Function that verifies if user token is valid</a></li><li><a href="global.html#authRoleFunctionthatverifiesuserrole">authRole
-Function that verifies user role</a></li><li><a href="global.html#createApplicationFunctiontocreateanewapplicationdothedataabase">createApplication
-Function to create a new application do the dataabase</a></li><li><a href="global.html#deleteApplicationFunctiontodeleteanewapplicationdothedatabase">deleteApplication
-Function to delete a new application do the database</a></li><li><a href="global.html#deleteUserFunctiontodeleteanUser">deleteUser
-Function to delete an User</a></li><li><a href="global.html#getApplicationsByIdFunctiontogetallapplicationsfromthedatabase">getApplicationsById
-Function to get all applications from the database</a></li><li><a href="global.html#getUserByEmailFunctiontogetuserbytemail">getUserByEmail
+Function that verifies user role</a></li><li><a href="global.html#deleteUserFunctiontodeleteanUser">deleteUser
+Function to delete an User</a></li><li><a href="global.html#getUserByEmailFunctiontogetuserbytemail">getUserByEmail
 Function to get user byt email</a></li><li><a href="global.html#getUserByIdFunctiontogetuserid">getUserById
 Function to get user id</a></li><li><a href="global.html#loginFunctiontologinusersinAPI">login
 Function to login users in API</a></li><li><a href="global.html#signupFunctioncreatenewusersinsystem">signup
-Function create new users in system</a></li><li><a href="global.html#updateApplicationFunctiontoupdatethedataofthenewapplicationdothedataabase">updateApplication
-Function to update the data of the new application do the dataabase</a></li><li><a href="global.html#updateUserFunctiontoupdateUser">updateUser 
+Function create new users in system</a></li><li><a href="global.html#updateUserFunctiontoupdateUser">updateUser 
 Function to update User</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.7</a> on Sun Jul 04 2021 18:53:15 GMT+0000 (GMT)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.7</a> on Sun Jul 04 2021 19:03:02 GMT+0000 (GMT)
 </footer>
 
 <script> prettyPrint(); </script>

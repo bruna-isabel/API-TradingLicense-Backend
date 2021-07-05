@@ -9,7 +9,7 @@ const jwt = require('jsonwebtoken');
    * @function 
    * @name login
    * Function to login users in API 
-   * @param {email, password} - User information to login
+   * @param {string} [email, password] - User information to login
    * @returns {object} access jwt token - token to confirm user exists 
    * @throws {error} - if user is not authorized 
 */
@@ -58,7 +58,7 @@ exports.login = async (req, res) => {
    * @function 
    * @name signup
    * Function create new users in system
-   * @param {name, email, password} - User information to sign up 
+   * @param {string} [name, email, password] - User information to sign up 
    * @returns {object}  - 200 status, new user json information
    * @throws {error} - if parameters not correct. if user does not exist
 */
@@ -79,25 +79,25 @@ exports.signup = async (req, res) => {
             });
 
             if (emailRegistered) {
-                return res.status(400).send({
+                res.status(400).send({
                 message: 'An account with that email already exists!',
                 });
             }
+			
+						//Creates User
+						try {
+							const hashedPass = await bcrypt.hash(password, 10)
+							let newUser = await User.create({
+									name: name, 
+									email: email,
+									password: hashedPass
+							});
+							return res.json(newUser);
+						} catch (error) {
+							return res.status(500).json({message: error.message});
+				}
     } catch (err) {
         res.status(400).send({message: "We cant find a user with that email."})
-    }
- 
-    //Creates User
-    try {
-        const hashedPass = await bcrypt.hash(password, 10)
-        let newUser = await User.create({
-            name: name, 
-            email: email,
-            password: hashedPass
-        });
-        return res.json(newUser);
-    } catch (error) {
-        return res.status(500).json({message: error.message});
     }
 };
 
@@ -133,8 +133,8 @@ exports.authenticateToken = (req, res, next)  => {
    * @function 
    * @name authRole
    * Function that verifies user role 
-   * @param {user.Role.id} - User Role ID
-   * @returns {status}- Status 200 to indicate if role is authorised
+   * @param {int} user.Role.id - User Role ID
+   * @returns {status} - Status 200 to indicate if role is authorised
    *
 */
 //partial function with role as a param

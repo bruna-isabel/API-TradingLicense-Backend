@@ -1,8 +1,8 @@
 {
-"$schema": "http://json-schema.org/draft-04/schema#",
+"$schema": "http://json-schema.org/draft-07/schema#",
 "definitions": {
 	"application": {
-		"id": "#application",
+		"$id": "#application",
 		"title": "Application",
 		"description": "Application for a trading company",
 		"type": "object",
@@ -11,19 +11,19 @@
 				"description": "The name of the business applying for a trading company ",
 				"type": "string"
 				},
-			"description": {
-						"description": "Description of the business applying",
-						"type": "string"
+				"business_description": {
+					"description": "Description of the business applying",
+					"type": "string"
 				},
 				"address": {
-						"description": "Address of bussiness",
-						"type": "string"
+					"description": "Address of business",
+					"type": "string"
 				},
 				"date_founded": {
-						"description": "When was the business founded",
-						"type": "string"
+					"description": "When was the business founded",
+					"type": "string"
 				}
-			}
+			},
 		"required": ["business_name", "description", "address", "date_founded"],
 		"additionalProperties": false
 		},
@@ -38,9 +38,9 @@
 				"description": "Business name",
 				"type": "string"
 				},
-				"description": {
+				"business_description": {
 					"description": "Description of business",
-					"type": "string",
+					"type": "string"
 				},
 				"address": {
 						"description": "Address of bussiness",
@@ -63,9 +63,9 @@
 				"description": "Business name",
 				"type": "string"
 				},
-				"description": {
+				"business_description": {
 					"description": "Description of business",
-					"type": "string",
+					"type": "string"
 				},
 				"address": {
 						"description": "Address of bussiness",
@@ -75,6 +75,7 @@
 						"description": "When was the business founded",
 						"type": "string"
 				}
+			},
       "additionalProperties": false
     },
     
@@ -127,4 +128,3 @@
       }
     }
 	}
-}

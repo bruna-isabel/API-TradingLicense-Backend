@@ -2,7 +2,6 @@
 const express = require('express');
 const { authenticateToken, authRole } = require('../controllers/auth');
 const router = express.Router()
-const basicAuth = require('../controllers/basicAuth')
 
 
 router.get('/home', (req, res) => {

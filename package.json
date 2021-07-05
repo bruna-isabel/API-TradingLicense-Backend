@@ -4,12 +4,19 @@
   "description": "",
   "main": "index.js",
   "scripts": {
-    "start": "nodemon index.js"
+    "start": "nodemon index.js",
+    "test": "cross-env DB_DATABASE=test_db jest --testTimeout=10000",
+		"test:watch": "cross-env DB_DATABASE=test_db jest --watch",
+    "testDB:drop": "mysql --user=root --password=codio -e 'DROP DATABASE test_db;'",
+    "testDB:create": "mysql --user=root --password=codio -e 'CREATE DATABASE test_db;'",
+    "testDB:migrate": "mysqldump --user=root --password=codio canine_shelter_db | mysql --user=root --password=codio test_db",
+    "pretest": "npm run testDB:drop && npm run testDB:create && npm run testDB:migrate"
   },
   "keywords": [],
   "author": "",
   "license": "ISC",
   "dependencies": {
+    "@koa/cors": "^3.1.0",
     "bcrypt": "^5.0.1",
     "body-parser": "^1.19.0",
     "cors": "^2.8.5",
@@ -35,6 +42,15 @@
     "url": "https://github.coventry.ac.uk/ricardob/api-canine-shelter-backend.git"
   },
   "devDependencies": {
-    "jsdoc": "^3.6.7"
+    "cross-env": "^7.0.3",
+    "jest": "^27.0.6",
+    "jsdoc": "^3.6.7",
+    "supertest": "^6.1.3"
+  },
+  "jest": {
+    "testEnvironment": "node",
+    "coveragePathIgnorePatterns": [
+      "/node_modules/"
+    ]
   }
 }

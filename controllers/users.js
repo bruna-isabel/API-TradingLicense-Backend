@@ -18,42 +18,40 @@ exports.getUsers = async (req, res) => {
 };
 
 exports.createUser = async (req, res) => {
-
-    //tries to find user by email 
-    const email = req.body.email;
-    if (!email) {
-        return res.status(400).send({
-            message: "Please insert all details"
-        });
+    const {name, email, password} = req.body;
+    console.log(req.body)
+    //Validate Listing
+    if (!name || !email || !password ){
+        return res.status(400).send({message: "Please enter all the fields" });
     }
-    let result = {};
     try {
-        result = await User.findOne({ where: { email } });
-        console.log(result)
+        //If email already exists
+            let emailRegistered = await User.findOne({
+                where: {
+                email,
+                },
+            });
 
-        if (Object.keys(result).length) {
-            user = result.dataValues
-            console.log(user)
-            
-            //Compares passwords
-            try {
-                let passwordsMatch = await bcrypt.compare(req.body.password, user.password)
-                if (passwordsMatch) {
-                    //gets token
-                    const token = jwt.sign({id: user.id}, process.env.ACCESS_TOKEN_SECRET)
-                    res.json({token: token})
-                } else {
-                    res.send('Not a Match')
-                }
-            } catch (err) {
-                res.status(500).send()
-                console.log(err.message)
+            if (emailRegistered) {
+                res.status(400).send({
+                message: 'An account with that email already exists!',
+                });
             }
-        } else { 
-            return res.status(400).send('Theres no user matching those details');
-        } 
-    } catch (error) {
-        return res.status(409).json({message: "Not able to find user"});
+			
+						//Creates User
+						try {
+							const hashedPass = await bcrypt.hash(password, 10)
+							let newUser = await User.create({
+									name: name, 
+									email: email,
+									password: hashedPass
+							});
+							return res.json(newUser);
+						} catch (error) {
+							return res.status(500).json({message: error.message});
+				}
+    } catch (err) {
+        res.status(400).send({message: "We cant find a user with that email."})
     }
 };
 
@@ -62,9 +60,9 @@ exports.createUser = async (req, res) => {
    * @function
    * @name getUserById
    * Function to get user id 
-   * @param {id} - User Id 
-   * @returns {object} the object containing each application information 
-   * @throws {error} if can't application by that id 
+   * @param {int} id - User Id 
+   * @returns {object} - the object containing each application information 
+   * @throws {error} -  if can't application by that id 
 */
 exports.getUserById = async (req, res) => {
     const id = req.params.id;
@@ -111,9 +109,9 @@ exports.getUserByEmail = async (req, res) => {
    * @function
    * @name updateUser 
    * Function to update User
-   * @param {name, email, password} - Information to update user with, 
-   * @param {id} - Id to know which user to update
-   * @returns {object}-  the object containing each user information 
+   * @param {string} [name, email, password] - Information to update user with, 
+   * @param {int} id - Id to know which user to update
+   * @returns {object} -  the object containing each user information 
    * @throws {error} - if can't find user by that id 
 */
 exports.updateUser = async (req, res) => {
@@ -150,7 +148,7 @@ exports.updateUser = async (req, res) => {
    * @function
    * @name deleteUser
    * Function to delete an User
-   * @param {id} - User Id 
+   * @param {int} id - User Id 
    * @returns {status} - 200 Status if user is deleted 
    * @throws {error} if can't user by that id 
 */

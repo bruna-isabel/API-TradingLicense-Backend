@@ -26,7 +26,18 @@
     
     <section>
         <article>
-            <pre class="prettyprint source linenums"><code>// Listings Controller
+            <pre class="prettyprint source linenums"><code>/**
+
+* Functions to handle Applications 
+
+* @module controllers/applications
+
+* @author Bruna Coimbra
+
+* @see models/* for the models that require this module
+
+*/
+
 const { Application } = require('../models');
   
 exports.getApplications = async (req, res) => {
@@ -58,11 +69,16 @@ exports.getApplications = async (req, res) => {
 
 /**
    * @function
-   * @name getApplicationsById
+   * 
+   * @name -  getApplicationsById
+   * 
    * Function to get all applications from the database
-   * @param {id} - Application Id 
-   * @returns {object} the object containing each application information 
-   * @throws {error} if can't application by that id 
+   * 
+   * @param {int} id - Application Id 
+   * 
+   * @returns {object} - the object containing each application information 
+   * 
+   * @throws {error} -  if can't application by that id 
 */
 
 exports.getApplicationById = async (req, res) => {
@@ -83,9 +99,13 @@ exports.getApplicationById = async (req, res) => {
 
 /**
    * @function
-   * @name createApplication
-   * Function to create a new application do the dataabase 
-   * @param {business_name, description, date_founded, address} - application information 
+   * 
+   * @name - createApplication
+   * 
+   * Function to create a new application do the database 
+   * 
+   * @param {string} [business_name, description, date_founded, address] - application information 
+   * 
    * @returns {object} - the new application created 
 */
 
@@ -116,9 +136,13 @@ exports.createApplication = async (req, res) => {
 
 /**
    * @function
+   * 
    * @name updateApplication
+   * 
    * Function to update the data of the new application do the dataabase 
-   * @param {business_name, description, date_founded, address} - application information to update 
+   * 
+   * @param {string} [business_name, description, date_founded, address] - application information to update 
+   * 
    * @returns {object} - the new application with updated information 
 */
 exports.updateApplication = async (req, res) => {
@@ -154,9 +178,13 @@ exports.updateApplication = async (req, res) => {
 
 /**
    * @function
-   * @name deleteApplication
+   * 
+   * @name - deleteApplication
+   * 
    * Function to delete a new application do the database 
-   * @param {id} - id of the application to the delete
+   * 
+   * @param {int} id - id of the application to the delete
+   * 
    * @returns {object} - status 200, applcation was deleted
 */
 exports.deleteApplication = async (req, res) => {
@@ -205,25 +233,21 @@ exports.deleteApplication = async (req, res) => {
 </div>
 
 <nav>
-    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-controllers_validation.html">controllers/validation</a></li><li><a href="module-models_application.html">models/application</a></li></ul><h3>Global</h3><ul><li><a href="global.html#authenticateTokemFunctionthatverifiesifusertokenisvalid">authenticateTokem
+    <h2><a href="index.html">Home</a></h2><h3>Modules</h3><ul><li><a href="module-controllers_applications.html">controllers/applications</a></li><li><a href="module-controllers_validation.html">controllers/validation</a></li><li><a href="module-models_application.html">models/application</a></li></ul><h3>Global</h3><ul><li><a href="global.html#authenticateTokemFunctionthatverifiesifusertokenisvalid">authenticateTokem
 Function that verifies if user token is valid</a></li><li><a href="global.html#authRoleFunctionthatverifiesuserrole">authRole
-Function that verifies user role</a></li><li><a href="global.html#createApplicationFunctiontocreateanewapplicationdothedataabase">createApplication
-Function to create a new application do the dataabase</a></li><li><a href="global.html#deleteApplicationFunctiontodeleteanewapplicationdothedatabase">deleteApplication
-Function to delete a new application do the database</a></li><li><a href="global.html#deleteUserFunctiontodeleteanUser">deleteUser
-Function to delete an User</a></li><li><a href="global.html#getApplicationsByIdFunctiontogetallapplicationsfromthedatabase">getApplicationsById
-Function to get all applications from the database</a></li><li><a href="global.html#getUserByEmailFunctiontogetuserbytemail">getUserByEmail
+Function that verifies user role</a></li><li><a href="global.html#deleteUserFunctiontodeleteanUser">deleteUser
+Function to delete an User</a></li><li><a href="global.html#getUserByEmailFunctiontogetuserbytemail">getUserByEmail
 Function to get user byt email</a></li><li><a href="global.html#getUserByIdFunctiontogetuserid">getUserById
 Function to get user id</a></li><li><a href="global.html#loginFunctiontologinusersinAPI">login
 Function to login users in API</a></li><li><a href="global.html#signupFunctioncreatenewusersinsystem">signup
-Function create new users in system</a></li><li><a href="global.html#updateApplicationFunctiontoupdatethedataofthenewapplicationdothedataabase">updateApplication
-Function to update the data of the new application do the dataabase</a></li><li><a href="global.html#updateUserFunctiontoupdateUser">updateUser 
+Function create new users in system</a></li><li><a href="global.html#updateUserFunctiontoupdateUser">updateUser 
 Function to update User</a></li></ul>
 </nav>
 
 <br class="clear">
 
 <footer>
-    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.7</a> on Sun Jul 04 2021 18:53:15 GMT+0000 (GMT)
+    Documentation generated by <a href="https://github.com/jsdoc/jsdoc">JSDoc 3.6.7</a> on Sun Jul 04 2021 19:03:02 GMT+0000 (GMT)
 </footer>
 
 <script> prettyPrint(); </script>
