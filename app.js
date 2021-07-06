@@ -9,8 +9,6 @@ const mainRoutes = require('./routes/mainRoutes')
 const applications = require('./routes/applications');
 const users = require('./routes/users');
 const auth = require('./routes/auth');
-const apply = require('./routes/apply')
-
 
 app.use(express.json());
 app.use(bodyParser());
@@ -24,7 +22,6 @@ app.use('/', mainRoutes)
 app.use('/applications', applications);
 app.use('/users', users)
 app.use('/auth', auth)
-app.use('/apply', apply)
 
 module.exports = app;
 

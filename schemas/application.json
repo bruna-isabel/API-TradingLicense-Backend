@@ -23,9 +23,7 @@
 					"description": "When was the business founded",
 					"type": "string"
 				}
-			},
-		"required": ["business_name", "description", "address", "date_founded"],
-		"additionalProperties": false
+			}
 		},
 		
 		"applicationIndividual": {
@@ -74,11 +72,9 @@
 				"date_founded": {
 						"description": "When was the business founded",
 						"type": "string"
-				}
-			},
+				},
       "additionalProperties": false
     },
-    
     
     "applicationList": {
       "$id": "#applicationList",
@@ -87,7 +83,6 @@
       "type": "array",
       "items": {"$ref": "#/definitions/applicationIndividual"}
     },
-    
     
     "applicationUpdated": {
       "$id": "#applicationUpdated",
@@ -128,3 +123,4 @@
       }
     }
 	}
+}

@@ -1,6 +1,8 @@
 // Listings Routes
 const express = require('express');
 const { authenticateToken, authRole } = require('../controllers/auth');
+const {getApplications, getApplicationById, createApplication, updateApplication, deleteApplication} = require('../controllers/applications.js');
+const {validateApplication} = require('../controllers/validation');
 const router = express.Router()
 
 

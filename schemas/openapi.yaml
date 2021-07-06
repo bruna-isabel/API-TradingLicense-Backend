@@ -1,24 +1,22 @@
 openapi: 3.0.0
 info:
   version: 1.0.0
-  title: Back End API
+  title: TLD API DOCUMENTATION
   description: An API for TLD application website.
   contact:
-    name: Finlay Campbell
-    email: campb167@coventry.ac.uk
+    name: Bruna Coimbra
+    email: ricardob@coventry.ac.uk
   license:
     name: Apache 2.0
     url: 'https://www.apache.org/licenses/LICENSE-2.0.html'
 servers:
   - url: 'https://earth-almanac-3030.codio-box.uk/'
     description: Development server
-
 tags:
   - name: Users
     description: Users that use APi.
   - name: Applications
     description: Users can fill applications for trading license.
-
 paths:
   /users:
     summary: Represents an individual user

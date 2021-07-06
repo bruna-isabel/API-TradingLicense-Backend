@@ -1,6 +1,6 @@
 const app = require('./app');
 const db = require('./models');
-const Role = db.roles;
+const Application = db.applications;
 
 let PORT = process.env.PORT || 3030;
 
